@@ -13,7 +13,7 @@ export default function Home() {
     category: '',
     subCategory: ''
   })
-  const [file, setFile] = useState<File| null>(null)
+  const [, setFile] = useState<File| null>(null)
 
   const handleFileSelection = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0]
