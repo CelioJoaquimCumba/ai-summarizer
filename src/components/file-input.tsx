@@ -17,7 +17,7 @@ export default function FileInput(props: {
     onChange,
     onDelete,
     required,
-    accept = 'image/*',
+    accept = 'audio/*',
     preview,
     aspectRatio = '16/9',
     error,
@@ -48,7 +48,7 @@ export default function FileInput(props: {
           <>
             <FileUp className="w-10 h-10 text-gray-600" strokeWidth={1} />
             <p className="text-gray-600">
-              Arraste o ficheiro ou escolha o ficheiro
+              Escolha o ficheiro
             </p>
           </>
         )}
