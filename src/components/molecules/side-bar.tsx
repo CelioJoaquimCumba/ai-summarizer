@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
-import { FileWarning, GitGraph, LayoutDashboard, LogOut, Settings } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { FileWarning, LayoutDashboard, LogOut, Settings } from 'lucide-react'
 import { Button } from '../ui/button'
 import SideItem from '../atoms/side-item'
 
@@ -15,12 +15,12 @@ export default function SideBar() {
           },
           {
             label: 'Alerts',
-            path: '/alerts',
+            path: '/management/alerts',
             icon: FileWarning,
             comingSoon: false},
           {
             label: 'Configurations',
-            path: '/config',
+            path: '/management/settings',
             icon: Settings,
             comingSoon: false
           },]

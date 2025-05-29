@@ -4,15 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { summarize } from "./actions/summarizer";
+import { CallAnalysis } from "@/lib/types";
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
   const [summarized, setSummarized] = useState(false)
-  const [summary, setSummary] = useState({
-    summary: '',
-    category: '',
-    subCategory: ''
-  })
+  const [summary, setSummary] = useState<CallAnalysis>()
   const [, setFile] = useState<File| null>(null)
 
   const handleFileSelection = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +38,7 @@ export default function Home() {
   }
 
   return (
-    <div className="w-screen h-dvh bg-white flex items-center justify-center">
+    <div className="w-screen h-dvh flex items-center justify-center p-16">
     { loading ? (
       <div className="flex flex-col gap-3 items-center justify-center">
         <div className="w-1/2 aspect-square animate-pulse bg-gray-300"></div>
@@ -49,17 +46,14 @@ export default function Home() {
       </div>
     ) :  (
       summarized ? (
-        <Card className="max-w-4xl w-full p-8 gap-3">
+        <Card className="max-w-4xl w-full p-8 gap-3 bg-white overflow-auto h-full">
           <CardHeader>
             <CardTitle className="text-2xl font-medium">Sumarização da conversa</CardTitle>
           </CardHeader>
-          <CardContent>
-            <p>
-              {summary.summary}
-           </p>
-
-           <p><b>Categoria:</b> {summary?.category}</p>
-           <p><b>Subcategoria:</b> {summary?.subCategory}</p>
+          <CardContent className="">
+            <pre>
+              {JSON.stringify(summary, null, "\t")}
+           </pre>
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button onClick={handleReset}>Sumarizar denovo</Button>

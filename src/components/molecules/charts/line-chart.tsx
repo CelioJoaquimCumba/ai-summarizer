@@ -18,17 +18,36 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-]
+  { hour: "0h", desktop: 50 },
+  { hour: "1h", desktop: 40 },
+  { hour: "2h", desktop: 35 },
+  { hour: "3h", desktop: 30 },
+  { hour: "4h", desktop: 28 },
+  { hour: "5h", desktop: 32 },
+  { hour: "6h", desktop: 80 },
+  { hour: "7h", desktop: 120 },
+  { hour: "8h", desktop: 170 },
+  { hour: "9h", desktop: 220 },
+  { hour: "10h", desktop: 270 },
+  { hour: "11h", desktop: 290 },
+  { hour: "12h", desktop: 305 },  // peak
+  { hour: "13h", desktop: 240 },
+  { hour: "14h", desktop: 230 },
+  { hour: "15h", desktop: 260 },
+  { hour: "16h", desktop: 280 },
+  { hour: "17h", desktop: 300 },
+  { hour: "18h", desktop: 237 },
+  { hour: "19h", desktop: 200 },
+  { hour: "20h", desktop: 160 },
+  { hour: "21h", desktop: 120 },
+  { hour: "22h", desktop: 90 },
+  { hour: "23h", desktop: 65 },
+];
+
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
+    label: "Calls",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig
@@ -37,8 +56,8 @@ export default function LineChart() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Line Chart</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Call trend</CardTitle>
+        <CardDescription>01 April 2025</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-40 w-full">
@@ -52,7 +71,7 @@ export default function LineChart() {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="hour"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
@@ -74,10 +93,10 @@ export default function LineChart() {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          Trending up by 5.2% <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Showing total visitors for the last 30 min
         </div>
       </CardFooter>
     </Card>

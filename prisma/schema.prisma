@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model CallAnalysis {
+  id                  String              @id @default(cuid())
+  callId              String?             // optional - blank initially
+  timestamp           DateTime?           // optional
+  duration            Int
+  callType            String
+  channel             String
+  languagePreference  String
+  location            String?
+
+  customerId          String?
+  customer            Customer?           @relation(fields: [customerId], references: [id])
+
+  agentId             String?
+  agent               Agent?              @relation(fields: [agentId], references: [id])
+
+  categorizationId    String?
+  categorization      Categorization?     @relation(fields: [categorizationId], references: [id])
+
+  experienceId        String?
+  experience          Experience?         @relation(fields: [experienceId], references: [id])
+
+  qualityAssessmentId String?
+  qualityAssessment   QualityAssessment?  @relation(fields: [qualityAssessmentId], references: [id])
+
+  summaryId           String?
+  summary             CallSummary?        @relation(fields: [summaryId], references: [id])
+
+  tags                String[]            // string array
+}
+
+model Customer {
+  id              String    @id @default(cuid())
+  customerId      String?
+  msisdn          String?
+  customerName    String?
+  accountType     String
+  customerSegment String
+
+  callAnalysis    CallAnalysis[]
+}
+
+model Agent {
+  id          String    @id @default(cuid())
+  agentId     String?
+  agentName   String?
+  department  String?
+  languageUsed String
+
+  callAnalysis CallAnalysis[]
+}
+
+model Categorization {
+  id                String    @id @default(cuid())
+  serviceCategory   String
+  serviceSubcategory String
+  issueType         String
+  specificIssue     String
+
+  callAnalysis      CallAnalysis[]
+}
+
+model Experience {
+  id                   String    @id @default(cuid())
+  sentiment            String
+  emotionalTone        String
+  satisfactionIndicator String
+  csatScore            Int
+  npsIntentToRecommend Int
+  feedbackProvided     Boolean
+
+  callAnalysis         CallAnalysis[]
+}
+
+model QualityAssessment {
+  id                  String   @id @default(cuid())
+  greetingCompliance  Boolean
+  closureCompliance   Boolean
+  scriptAdherence     String
+  empathyShown        Boolean
+  activeListening     Boolean
+  problemSolving      String
+  callQualityScore    Float
+  qaRemarks           String
+
+  callAnalysis        CallAnalysis[]
+}
+
+model CallSummary {
+  id            String   @id @default(cuid())
+  shortSummary  String
+  fullSummary   String
+
+  callAnalysis  CallAnalysis[]
+}
